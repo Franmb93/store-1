@@ -10,8 +10,10 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class ProductsComponent implements OnInit {
 
+ 
+
   products: Product[] = [];
-  
+  product = "Acho"
 
   constructor(private productService: ProductService) { }
 
@@ -21,10 +23,12 @@ export class ProductsComponent implements OnInit {
     .pipe(
       tap((products: Product[]) => this.products = products)
     )
-      .subscribe();
-
-      
-
+      .subscribe(); 
   }
+
+  addTocartParent(product: Product): void {
+        console.log("el padresssss", product)
+  }
+
 
 }

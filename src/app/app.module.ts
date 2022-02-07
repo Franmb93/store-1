@@ -9,13 +9,15 @@ import { AngularMaterialModule } from './angular-material/angular-material.modul
 import { EstudiantesComponent } from './estudiantes/estudiantes.component';
 import { EmpleadosComponent } from './empleados/empleados.component';
 import { HttpClientModule } from '@angular/common/http';
+// import { ProductComponent } from './components/product/product.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     EstudiantesComponent,
-    EmpleadosComponent
+    EmpleadosComponent,
+    // ProductComponent
   ],
   imports: [
     BrowserModule,
