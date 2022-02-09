@@ -12,6 +12,8 @@ export class ShoppingCartService {
   private cartSubject = new BehaviorSubject<Product[]>([]);
   private totalSubject = new BehaviorSubject<number>(0);
   private quantitySubject = new BehaviorSubject<number>(0);
+  
+  constructor() { }
 
   //Para saber que cartAction es un observable s epone $ al final
   get cartAction$(): Observable<Product[]> {
@@ -29,21 +31,29 @@ export class ShoppingCartService {
   //Necesitamos unos métodos privados también
   //Para calcular el total de la orden que lso clientes compran
   private calcTotal(): void {
-    const total = this.products.reduce((accumulator, actualProduct) => accumulator += actualProduct.price, 0);
+    const total = this.products.reduce((accumulator, actualProduct) => accumulator += (actualProduct.price * actualProduct.qty), 0);
     //Notificar el observable
     this.totalSubject.next(total);
   }
 
   //Método para la cantidad de productos que el usuario añadió al carrito
   private quantityProducts(): void {
-    const quantity = this.products.length;
+    //Para que en el detalle no se repita el producto si hay más d euno igual y solo sume la cantidad
+    // const quantity = this.products.length;
+    const quantity = this.products.reduce((acc, prod) => acc += prod.qty, 0);
     this.quantitySubject.next(quantity);
   }
 
   //Método para añadir productos al carrito
   private addToCart(product: Product): void {
-    console.log("product: ", product)
-    this.products.push(product);
+    // console.log("product: ", product)
+    //Ahora comprobamos si el product ya esta en la lista o no y solo aumentamos la cantidad.
+    const isProductInCart = this.products.find(({id}) => id === product.id)
+    if (isProductInCart){
+      isProductInCart.qty++;
+    } else {
+      this.products.push({...product, qty: 1});
+    }
     this.cartSubject.next(this.products);
   }
 
@@ -54,6 +64,12 @@ export class ShoppingCartService {
     this.quantityProducts();
   }
 
+  resetCart(): void {
+    this.cartSubject.next([]);
+    this.totalSubject.next(0);
+    this.quantitySubject.next(0);
+    this.products = [];
+  }
 
-  constructor() { }
+  
 }

@@ -1,9 +1,10 @@
 <p>
     <mat-toolbar>
-        <span>La tienda mursiana </span>
-        <!-- Hay que subscribirse al observable quantity$ con | async -->
-        - Quantity: {{ quantity$ | async  }}
-        - Total: {{ total$ | async }} 
-        - Producto: {{ cart$ | async | json }} 
+       <div>
+            <span>La tienda mursiana </span>
+       </div>
+        <div class="cart">
+            <app-cart></app-cart>
+        </div>
     </mat-toolbar>
 </p>

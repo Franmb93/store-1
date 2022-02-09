@@ -7,6 +7,7 @@ const routes: Routes = [
   {path: 'estudiantes', component: EstudiantesComponent},
   {path: 'empleados', component: EmpleadosComponent},
   { path: 'products', loadChildren: () => import('./components/products/products.module').then(m => m.ProductsModule) },
+  { path: 'checkout', loadChildren: () => import('./checkout/checkout.module').then(m => m.CheckoutModule) },
   {path: '**', redirectTo: '', pathMatch: 'full'}
 ];
 

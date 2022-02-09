@@ -1,0 +1,8 @@
+<ng-container *ngIf="{total : total$}">
+    <!-- Hay que subscribirse al observable quantity$ con | async -->
+    - Quantity: {{ quantity$ | async  }}
+    - Total: {{ total$ | async }} 
+    - Producto: {{ cart$ | async | json }} 
+</ng-container>
+
+

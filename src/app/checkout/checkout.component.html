@@ -1,0 +1,59 @@
+<div class="container">
+    <form class="form" #checkoutForm="ngForm">
+        <mat-form-field class="form_element">
+            <input matInput placeholder="Name" required [(ngModel)]="model.name" name="name" #name="ngModel">
+            <mat-error *ngIf="!name.valid || name.pristine">Nombre del producto incorrecto</mat-error>
+        </mat-form-field>
+
+        <mat-radio-group class="form_element">
+            <p>Choose an option</p>
+            <mat-radio-button value="pickup" (change)="onPickupDelivery(false)">
+                pickup
+            </mat-radio-button>
+            <mat-radio-button value="delivery" (change)="onPickupDelivery(true)">
+                delivery
+            </mat-radio-button>
+        </mat-radio-group>
+        <!-- Selecciona la direccion de entrega que solo se hará visible si se selecciona a domicilio -->
+        <ng-container *ngIf="isDelivery; else showStores">
+            <mat-form-field class="form_element">
+                <!-- Dirección de envío -->
+                <input matInput placeholder="Shipping addres" [(ngModel)]="model.shippingAddress"
+                    name="shippingAddress"
+                    #shippingAddress
+                >
+            </mat-form-field>
+            <mat-form-field >
+                <!-- Ciudad -->
+                <input matInput placeholder="City" [(ngModel)]="model.city"
+                    name="city"
+                    #city="ngModel"
+                    [ngModelOptions]="{standalone: false}"
+                >
+            </mat-form-field>
+        </ng-container>
+        <!-- Tiendas para recoger el pedido -->
+        <ng-template #showStores>
+            <mat-form-field class="form_element">
+                <mat-label>Seleccionar tienda</mat-label>
+                <mat-select name="store" #store="ngModel" [(ngModel)]="model.store">
+                    <mat-option [value]="store" *ngFor="let store of stores">{{store.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </ng-template>
+    </form>
+    
+</div>
+<!-- detalles del pedido -->
+<app-details></app-details>
+<div class="actions">
+    <button
+        mat-raised-button
+        color="primary"
+        class="actions__btn"
+        type="submit"
+        (click)="onSubmit(checkoutForm)"
+    >
+        Checkout
+    </button>
+</div>
