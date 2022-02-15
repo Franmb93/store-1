@@ -15,4 +15,5 @@ export interface Details {
 
 export interface DetailsOrder {
     details: Details[];
+    orderId: number;
 }

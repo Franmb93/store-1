@@ -1,10 +1,12 @@
 <p>
-    <mat-toolbar>
+    <mat-toolbar color="primary" class="main-header">
        <div>
-            <span>La tienda mursiana </span>
-       </div>
+           <a id="title" [routerLink]="['/products']"> La tienda mursiana de aseitunah y limoneh </a> 
+           
+       </div> 
+       <span class="spacer"></span>
         <div class="cart">
-            <app-cart></app-cart>
+            <app-cart class="shopping-cart" (click)="goToCheckout()"></app-cart>
         </div>
     </mat-toolbar>
 </p>
